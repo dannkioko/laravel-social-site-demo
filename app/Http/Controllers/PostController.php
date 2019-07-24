@@ -30,7 +30,7 @@ class PostController extends Controller{
     		'caption'=>'required',
     		'image'=>['required','image'],]);
         $imgPath = request('image')->store('uploads','public');
-
+        
         auth()->user()->posts()->create(['caption'=>$data['caption'],'image'=>$imgPath]);
 
     	return redirect('/profile/' .auth()->user()->id );

@@ -26,6 +26,18 @@
             <div class="pt-4 font-weight=bold">{{ $user->profile->title }}</div>
             <div class="pt-2">{{ $user->profile->description }}</div>
             <div class="pt-2"><a href="#">{{$user->profile->url??'N/A'}}</a></div>
+            <div class="d-flex">
+                <div class="mr-2">
+                <form action="/message/{{$user->id}}/create" enctype="multipart/form-data" method="get">
+                    <button type="submit" class="btn btn-primary mt-4">Send Message</button>
+                </form>
+            </div>
+            <div class="ml-2">
+                <form action="/messages/{{auth()->user()->id}}" enctype="multipart/form-data" method="get">
+                    <button type="submit" class="btn btn-primary mt-4">Shows Messages</button>
+                </form>
+            </div>
+            </div>
         </div>
     </div>
     <div class="row pt-5">
