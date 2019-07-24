@@ -41,7 +41,7 @@ class ProfilePolicy
      */
     public function create(User $user)
     {
-        //
+        
     }
 
     /**

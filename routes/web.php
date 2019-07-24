@@ -30,8 +30,7 @@ Route::post('/post','PostController@store');
 //show post
 Route::get('/post/{post}','PostController@show');
 //create message
-Route::get('/message/{user}/create','MessageController@create')->name('message.edit');
+Route::get('/message/{user}','MessageController@create')->name('message.edit');
 //store message in db
 Route::post('/message/{user}', 'MessageController@store');
-//show messages
-Route::get('/messages/{user}', 'MessageController@index');
+

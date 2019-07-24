@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Message;
+use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
 {
@@ -13,9 +14,12 @@ class MessageController extends Controller
     	$this->middleware('auth');
     }
     public function index(User $user){
-        $users = [auth()->user()->id];
-        $messages = Message::whereIn('user_id', $users)->orderBy('created_at','DESC');
-        return view('messages.show',compact('messages','user'));
+        $id = auth()->user()->id;
+        $messages = DB::table('messages')->where([
+            ['user_id'=> $id],
+            ['profile_id'=>$id],
+        ])->get();
+        return view('messages.create',compact('messages','user'));
     }
     public function create(User $user)
     {
@@ -28,5 +32,6 @@ class MessageController extends Controller
     		'profile_id'=>''
     	]);
     	auth()->user()->messages()->create(['message'=>$data['message'],'user_id'=>auth()->user()->id,'profile_id'=>$user->id]);
+        return redirect('/message/' .auth()->user()->id );
     }
 }
