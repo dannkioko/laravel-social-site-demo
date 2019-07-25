@@ -14,9 +14,10 @@ class MessageController extends Controller
     	$this->middleware('auth');
     }
     public function index(User $user){
-        $id = auth()->user()->id;
         $messages = DB::table('messages')->where([['user_id',auth()->user()->id],['profile_id',$user->id],])->orWhere([['user_id',$user->id],['profile_id',auth()->user()->id],])->get();
-        //dd(DB::table('messages')->get());
+        foreach ($messages as $message) {
+            $message->user_id=User::find($message->user_id);
+        }
         return view('messages.create',compact('messages','user'));
     }
     public function create(User $user)

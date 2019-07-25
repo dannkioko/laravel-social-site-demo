@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-	<form action="/message/{{$user->id}}" enctype="multipart/form-data" method="post">
+    <form action="/message/{{$user->id}}" enctype="multipart/form-data" method="post">
         @csrf
         <div class="row">
             <div class="col-8 offset-2">
@@ -12,25 +12,47 @@
                 <div class="form-group row">
                     <label for="username" class="col-md-4 col-form-label">Conversation With:{{$user->username}}</label>
                 </div>
-                @foreach($messages as $message)
-<div class="row pt-2">
-    <div class="col-6 offset-3">
-        <div>
-            <p><span><a href="/profile/{{$user->id}}" class="text-dark"><span class="font-weight-bold">{{auth()->user()->username}}</span></a></span>  {{$message->message}}</p>
-        </div>
-    </div>
-</div>
-@endforeach
-                <div class="form-group row">
-                    <label for="message" class="col-md-4 col-form-label">Message</label>
+                <div class="chat-page">
+                    <div class="msg-inbox">
+                        <div class="chats">
+                            <div class="msg-page">
+                                @foreach($messages as $message)
+                                @if($message->user_id->id==$user->id)
+                                <div class="received-chats">
+                                    <div class="received-chats-img">
+                                        <img src="">
+                                    </div>
+                                    <div class="received-msg">
+                                        <div class="received-msg-inbox">
+                                            <p>{{$message->message}}</p>
+                                            <span>{{$message->created_at}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="outgoing-chats">
 
-                    <input id="message" name="message" type="text" class="form-control @error('message') is-invalid @enderror" value="{{ old('message')??$user->profile->message }}" autocomplete="message" autofocus>
-
+                                    <div class="outgoing-chats-msg">
+                                        <p>{{$message->message}}</p>
+                                        <span>{{$message->created_at}}</span>
+                                    </div>
+                                    <div class="outgoing-chats-img">
+                                        <img src="">
+                                    </div>
+                                </div>
+                                @endif                    
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <input id="message" name="message" type="text" class="form-control  @error('message') is-invalid @enderror" autocomplete="message" autofocus>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div> 
+                    </div>
                 </div>
-                <div class="row pt-4">
-                    <button type="submit" class="btn btn-primary">Send Message</button>                  
-                </div>
-            </div> 
+            </div>
         </div>
     </form>
 </div>

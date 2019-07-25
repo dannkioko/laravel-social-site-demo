@@ -9,7 +9,7 @@ class Message extends Model
 	protected $guarded =[];
     public function user()
     {
-    	return $this->belongsto(User::class);
+    	return $this->belongsto(User::class, 'user_id');
     }
     public function profile()
     {
