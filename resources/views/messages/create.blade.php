@@ -12,15 +12,15 @@
                 <div class="form-group row">
                     <label for="username" class="col-md-4 col-form-label">Conversation With:{{$user->username}}</label>
                 </div>
-                @foreach($user->messages as $message)
-                <div class="row pt-2">
-                    <div class="col-6 offset-3">
-                        <div>
-                            <p><span><a href="/profile/{{$user->id}}" class="text-dark"><span class="font-weight-bold">{{$message->profile->user->username}}</span></a></span>  {{$message->message}}</p>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+                @foreach($messages as $message)
+<div class="row pt-2">
+    <div class="col-6 offset-3">
+        <div>
+            <p><span><a href="/profile/{{$user->id}}" class="text-dark"><span class="font-weight-bold">{{auth()->user()->username}}</span></a></span>  {{$message->message}}</p>
+        </div>
+    </div>
+</div>
+@endforeach
                 <div class="form-group row">
                     <label for="message" class="col-md-4 col-form-label">Message</label>
 

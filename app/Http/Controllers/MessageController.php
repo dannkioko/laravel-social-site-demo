@@ -15,10 +15,8 @@ class MessageController extends Controller
     }
     public function index(User $user){
         $id = auth()->user()->id;
-        $messages = DB::table('messages')->where([
-            ['user_id'=> $id],
-            ['profile_id'=>$id],
-        ])->get();
+        $messages = DB::table('messages')->where([['user_id',auth()->user()->id],['profile_id',$user->id],])->orWhere([['user_id',$user->id],['profile_id',auth()->user()->id],])->get();
+        //dd(DB::table('messages')->get());
         return view('messages.create',compact('messages','user'));
     }
     public function create(User $user)
@@ -32,6 +30,6 @@ class MessageController extends Controller
     		'profile_id'=>''
     	]);
     	auth()->user()->messages()->create(['message'=>$data['message'],'user_id'=>auth()->user()->id,'profile_id'=>$user->id]);
-        return redirect('/message/' .auth()->user()->id );
+        return redirect('/message/' .$user->id );
     }
 }
