@@ -17,10 +17,10 @@
                         <div class="chats">
                             <div class="msg-page">
                                 @foreach($messages as $message)
-                                @if($message->user_id->id==$user->id)
+                                @if($message->user_id==$user->id)
                                 <div class="received-chats">
                                     <div class="received-chats-img">
-                                        <img src="">
+                                        <img src="/storage/{{$user->profile->image}}">
                                     </div>
                                     <div class="received-msg">
                                         <div class="received-msg-inbox">
@@ -37,7 +37,7 @@
                                         <span>{{$message->created_at}}</span>
                                     </div>
                                     <div class="outgoing-chats-img">
-                                        <img src="">
+                                        <img src="/storage/{{auth()->user()->profile->image}}">
                                     </div>
                                 </div>
                                 @endif                    
@@ -45,10 +45,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex">
-                        <input id="message" name="message" type="text" class="form-control  @error('message') is-invalid @enderror" autocomplete="message" autofocus>
+                    <div class="msg-bottom d-flex">
+                        <input id="message" name="message" type="text" placeholder="Write message here..." class="form-control  @error('message') is-invalid @enderror" autocomplete="message" autofocus>
                         <div>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
                         </div> 
                     </div>
                 </div>

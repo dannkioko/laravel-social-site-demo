@@ -15,9 +15,6 @@ class MessageController extends Controller
     }
     public function index(User $user){
         $messages = DB::table('messages')->where([['user_id',auth()->user()->id],['profile_id',$user->id],])->orWhere([['user_id',$user->id],['profile_id',auth()->user()->id],])->get();
-        foreach ($messages as $message) {
-            $message->user_id=User::find($message->user_id);
-        }
         return view('messages.create',compact('messages','user'));
     }
     public function create(User $user)
